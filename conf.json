@@ -1,0 +1,10 @@
+{
+    "name": "手势验证码",
+    "brief": "插件介绍地址: <br>更多优质主题、插件请点击：<a href='https://zhaolindev.com'  target='_blank'>召灵网</a>",
+    "version": "1.0",
+    "bbs_version": "4.0",
+    "installed": 1,
+    "enable": 1,
+    "hooks_rank": [],
+    "dependencies": []
+}

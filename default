@@ -1,0 +1,34 @@
+
+server {
+    listen 80;
+    listen [::]:80 default_server;
+    server_name zhaolindev.com;
+    rewrite ^(.*) https://$server_name$1 permanent;
+}
+
+server {
+  listen 443 default ssl;
+  listen [::]:443 default_server;
+
+  ssl on;
+  root /home/www/html;
+  server_name _;
+  
+  ssl_certificate /ssl/1_zhaolindev.com_bundle.crt;
+  ssl_certificate_key /ssl/2_zhaolindev.com.key;
+
+  location / {
+    index index.htm index.html index.php;
+    # First attempt to serve request as file, then
+    # as directory, then fall back to displaying a 404.
+    try_files $uri $uri/ =404;
+  }
+  
+  location ~ \.php$ {
+    root /home/www/html; #指定php的根目录
+    fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+  }
+}

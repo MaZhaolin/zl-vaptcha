@@ -1,0 +1,14 @@
+<?php 
+    include_once APP_PATH.'plugin/zl_vaptcha/hook/vaptcha.php';
+    $script = <<<SCRIPT
+    var submit = $('#send');
+    submit.click(function() {
+        if(!$('input[name=vaptcha_token]').val()) {
+            $('.vaptcha-container').alert('请进行人机验证').focus();
+            return false;
+        }
+        setTimeout(obj.reset.bind(obj), 1000)
+    })
+SCRIPT;
+    echo getVaptchaScript('email_code', $script);
+?>

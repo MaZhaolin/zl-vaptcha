@@ -1,0 +1,110 @@
+<?php include _include(ADMIN_PATH.'view/htm/header.inc.htm');?>
+<form class="card">
+    <div class="card-body">
+        <h4>
+            zl_vaptcha 插件设置
+            <a href="https://zhaolindev.com" target="_blank"><img class="float-right" height="30px" src="/plugin/zl_vaptcha/static/logo.png" alt=""> </a>
+        </h4>
+        <div class="alert alert-warning" role="alert">
+            <div>本插件由召灵网出品，请认准官方网站：
+                <a href="https://zhaolindev.com" target="_blank">zhaolindev.com</a>
+            </div>
+            <div>请勿使用盗版应用，产生的一切安全问题本站概不负责。</div>
+        </div>
+        <div class="alert alert-success msg" style="display: none">
+        </div>
+        <div class="row">
+            <div class="form-group row col-lg-6">
+                <label for="Vid" class="col-sm-12 col-form-label">Vid</label>
+                <div class="col-sm-12">
+                    <input value="<?php echo $config['vid']?>" name="vid" type="text" class="form-control" id="Vid" placeholder="Vid">
+                </div>
+            </div>
+            <div class="form-group row col-lg-6">
+                <label for="Key" class="col-sm-12 col-form-label">Key</label>
+                <div class="col-sm-12">
+                    <input value="<?php echo $config['key']?>" name="key" type="text" class="form-control" id="Key" placeholder="Key">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group row col-lg-6">
+                <label for="Vid" class="col-sm-12 col-form-label">显示样式</label>
+                <div class="col-sm-12">
+                    <select value="<?php echo $config['type']?>" class="custom-select" name="type" id="">
+                        <option <?php if($config[ 'type']=='click' ) {?> selected
+                            <?php }?> value="click">点击式</option>
+                        <option <?php if($config[ 'type']=='embed' ) {?> selected
+                            <?php }?> value="embed">嵌入式</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row col-lg-6">
+                <label for="Key" class="col-sm-12 col-form-label">按钮颜色</label>
+                <div class="col-sm-12">
+                    <input value="<?php echo $config['color']?>" name="color" type="color" style="height: 30px;" class="form-control" id="Key"
+                        placeholder="按钮颜色">
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="Key" class="col-sm-12 col-form-label">开启模块</label>
+            <div class="col" style="margin-left: 15px">
+                <input class="form-check-input" <?php if(!empty($config[ 'enable'][ 'user_login'])) {?> checked
+                <?php }?> type="checkbox" name="enable[user_login]" id="user_login">
+                <label class="form-check-label" for="user_login">
+                    登陆模块
+                </label>
+            </div>
+            <div class="col">
+                <input class="form-check-input" <?php if(!empty($config[ 'enable'][ 'user_create'])) {?> checked
+                <?php }?> type="checkbox" name="enable[user_create]" id="user_create">
+                <label class="form-check-label" for="user_create">
+                    注册模块
+                </label>
+            </div>
+            <div class="col">
+                <input class="form-check-input" <?php if(!empty($config[ 'enable'][ 'email_code'])) {?> checked
+                <?php }?> type="checkbox" name="enable[email_code]" id="email_code">
+                <label class="form-check-label" for="email_code">
+                    邮件发送模块
+                </label>
+            </div>
+            <div class="col">
+                <input class="form-check-input" <?php if(!empty($config[ 'enable'][ 'quick_reply'])) {?> checked
+                <?php }?> type="checkbox" name="enable[quick_reply]" id="quick_reply">
+                <label class="form-check-label" for="quick_reply">
+                    回帖模块
+                </label>
+            </div>
+            <div class="col">
+                <input class="form-check-input" <?php if(!empty($config[ 'enable'][ 'thread_create'])) {?> checked
+                <?php }?> type="checkbox" name="enable[thread_create]" id="thread_create">
+                <label class="form-check-label" for="thread_create">
+                    发帖模块
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-success submit" type="button">保存</button>
+        </div>
+    </div>
+</form>
+<script src="../view/js/jquery-3.1.0.js<?php echo $static_version;?>"></script>
+<script>
+    var timer = null;
+    $('.submit').click(function () {
+        $.post('', $('form').serialize(), function (r) {
+            if (r && r.code === 1) {
+                $('.msg').text('修改成功').show();
+            } else {
+                $('.msg').text(JSON.stringify(r)).show();
+            }
+            timer && clearTimeout(timer);
+            timer = setTimeout(function() {
+                $('.msg').hide();
+            }, 1500)
+        }, 'json')
+    })
+</script>
