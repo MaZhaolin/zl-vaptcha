@@ -1,4 +1,3 @@
-
 server {
     listen 80;
     listen [::]:80 default_server;
@@ -17,6 +16,10 @@ server {
   ssl_certificate /ssl/1_zhaolindev.com_bundle.crt;
   ssl_certificate_key /ssl/2_zhaolindev.com.key;
 
+  location ~* \.(htm)$ {
+      rewrite "^(.*)/(.+?).htm(.*?)$" $1/index.php?$2.htm$3 last;
+  }
+
   location / {
     index index.htm index.html index.php;
     # First attempt to serve request as file, then
@@ -26,7 +29,7 @@ server {
   
   location ~ \.php$ {
     root /home/www/html; #指定php的根目录
-    fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    fastcgi_pass 127.0.0.1:9000;
     fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     include fastcgi_params;

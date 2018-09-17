@@ -38,7 +38,14 @@ function getConfig() {
         "vid" => "",
         "key" => "",
         "type" => "click",
-        "color" => '#3c8aff'
+        "color" => '#3c8aff',
+        "enable" => array(
+            "user_login" => 'on', 
+            "user_create" => 'on', 
+            "email_code" => 'on', 
+            "quick_reply" => 'on', 
+            "thread_create" => 'on',
+        )
     );
     return $config;
 }
